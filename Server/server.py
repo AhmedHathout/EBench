@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import argparse
 import socket
 from threading import Thread, Event
 
@@ -9,9 +9,22 @@ sys.path.append("../")
 from lib.my_pickle import MyPickle
 from Server.session.session import Session
 
+def parse_args():
+    args = argparse.ArgumentParser(description="Getting the host and port to"
+                                               " connect to the server")
+
+    args.add_argument("--host", help="The host ip address "
+                                     "(default='127.0.0.1')",
+                      type=str, default='127.0.0.1')
+
+    args.add_argument("--port", help="The port number (default=1998)",
+                      type=int, default=1998)
+
+    return args.parse_args()
+
 
 class Server(object):
-    def __init__(self, host="127.0.0.1", port=1997):
+    def __init__(self, host, port):
         self.host = host
         self.port = port
         self.running_jobs = []
@@ -52,5 +65,7 @@ class Server(object):
 
 
 if __name__ == "__main__":
-    server = Server()
+    args = parse_args()
+
+    server = Server(args.host, args.port)
     server.main()

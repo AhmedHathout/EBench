@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import argparse
 import sys
 sys.path.append("../")
 
@@ -9,6 +9,19 @@ from time import sleep
 from lib.my_pickle import MyPickle
 from server_response.response_parser import ResponseParser
 
+
+def parse_args():
+    args = argparse.ArgumentParser(description="Getting the host and port to"
+                                               " connect to the server")
+
+    args.add_argument("--host", help="The host ip address "
+                                     "(default='127.0.0.1')",
+                      type=str, default='127.0.0.1')
+
+    args.add_argument("--port", help="The port number (default=1998)",
+                      type=int, default=1998)
+
+    return args.parse_args()
 
 class Client(object):
     def __init__(self):
@@ -38,13 +51,12 @@ class Client(object):
         except ValueError as e:
             sys.stderr.write(str(e) + "\n")
 
+
 if __name__ == '__main__':
+    args = parse_args()
+
     client = Client()
-    # host = input("Please enter the host")
-    # port = int(input("Please enter the port"))
-    host = '127.0.0.1'
-    port = 1997
-    client.initiate_connection(host, port)
+    client.initiate_connection(args.host, args.port)
     client.run()
 
 
