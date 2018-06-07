@@ -2,7 +2,7 @@ from lib.my_pickle import MyPickle
 from libraries_paths.libraries_functions import *
 from Server.job.job import Job
 from Server.requests.request import Request
-from server_response.response_types.status.receive import Receive
+from server_response.response_types.receive import Receive
 from server_response.response_types.status.status_types.error import Error
 from server_response.response_types.terminate import Terminate
 

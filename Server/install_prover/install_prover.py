@@ -1,5 +1,5 @@
 import subprocess
-
+import tarfile
 from libraries_paths.libraries_functions import *
 
 class Installer(object):
@@ -10,14 +10,8 @@ class Installer(object):
     def extract_prover(self):
         path = get_prover_path(self.prover_id)
         prover_tgz = path + "E.tgz"
-        command = "tar -xvzf " + prover_tgz
-
-        data, error = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE, shell=True,
-                                       universal_newlines=True).communicate()
-
-        if error:
-            raise OSError(error)
+        with tarfile.open(prover_tgz) as tar:
+            tar.extractall(path)
 
     def configure(self):
         path_to_configure_file = get_prover_path(self.prover_id) + "E/"

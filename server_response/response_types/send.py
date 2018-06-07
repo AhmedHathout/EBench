@@ -10,4 +10,5 @@ class Send(Response):
         self.path_to_remove = path_to_remove
 
     def execute(self):
+        print("Sending {} ...".format(self.path))
         self.pickle.send_folder(self.path, self.path_to_remove)

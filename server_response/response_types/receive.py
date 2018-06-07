@@ -9,5 +9,6 @@ class Receive(Response):
         self.path = path
 
     def execute(self):
+        print("Receiving {} ...".format(self.path))
         self.pickle.receive_folder(save_to=self.path)
 

@@ -20,7 +20,14 @@ class SubProver(Request):
         self.prover_id = prover_id
 
     def execute(self):
-        path_to_remove = self.path.replace(remove_file_name(self.path), "")
+        path_to_remove = remove_file_name(self.path)
+
+        if not self.path.endswith("/E.tgz"):
+            error = Error("The file must be named E.tgz and should contain the"
+                          "folder E/")
+            self.pickle.send(error.create_dictionary())
+            return
+
         send = Send(None, self.path, path_to_remove)
 
         self.pickle.send(send.create_dictionary())
@@ -28,6 +35,9 @@ class SubProver(Request):
         os.makedirs(prover_path, exist_ok=True)
 
         self.pickle.receive_folder(save_to=prover_path)
+
+        success = Success("Extracting and installing...")
+        self.pickle.send(success.create_dictionary())
 
         installer = Installer(self.prover_id)
         try:

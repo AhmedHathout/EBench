@@ -1,5 +1,3 @@
-from socket import socket
-
 from lib.my_pickle import MyPickle
 
 
@@ -14,7 +12,7 @@ class ResponseParser(object):
     def execute(self, response: {str: str}):
 
         from server_response.response_types.send import Send
-        from server_response.response_types.status.receive import Receive
+        from server_response.response_types.receive import Receive
         from server_response.response_types.status.status_types.error import Error
         from server_response.response_types.status.status_types.success import Success
         from server_response.response_types.terminate import Terminate

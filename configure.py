@@ -5,8 +5,7 @@ from argparse import ArgumentParser
 from lib.directory import directorize
 
 def prepare_input_path(path: str) -> str:
-    return directorize(os.path.abspath(os.path.expanduser(
-        path)), remove_slash=False)
+    return directorize(os.path.abspath(os.path.expanduser(path)))
 
 if __name__ == '__main__':
     argparser = ArgumentParser(description="For parsing paths")
@@ -20,8 +19,11 @@ if __name__ == '__main__':
 
     args = argparser.parse_args()
 
-    default_server_library = directorize(os.path.abspath("./server_libraries/"))
-    default_client_library = directorize(os.path.abspath("./client_libraries/"))
+    default_server_library = "/" + directorize(
+        os.path.abspath("./server_libraries/"))
+
+    default_client_library = "/" + directorize(
+        os.path.abspath("./client_libraries/"))
 
     server_libraries = prepare_input_path(args.server_library) if \
         args.server_library else default_server_library
@@ -32,6 +34,7 @@ if __name__ == '__main__':
     jobs = "jobs/"
     jobs_reports = jobs + "reports/"
     jobs_results = jobs + "results/"
+    jobs_details = jobs + "details/"
 
     libraries = {"provers_library": server_libraries + "provers_library/",
                  "server_problems_library": server_libraries +
@@ -47,9 +50,9 @@ if __name__ == '__main__':
                  "client_jobs_results_library": client_libraries +
                                                 jobs_results,
                  "jobs_ids": client_libraries + jobs +
-                             "IDs_of_submitted_jobs/"
+                             "IDs_of_submitted_jobs/",
+                 "server_jobs_details_library": server_libraries + jobs_details
                  }
-
 
     with open("libraries_paths/libraries_paths.py", "w") as f:
         for key, value in libraries.items():

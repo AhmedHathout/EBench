@@ -1,29 +1,28 @@
-import os
+import json
 from lib.my_pickle import MyPickle
 from Server.job.job import Job
 from Server.requests.request import Request
-from server_response.response_types.send import Send
-from server_response.response_types.status.status_types.error import Error
 from server_response.response_types.status.status_types.success import Success
 from server_response.response_types.terminate import Terminate
 
 
 class ListJobs(Request):
 
-    def __init__(self, pickle:MyPickle, running_jobs: [Job], **kwargs):
+    def __init__(self, pickle:MyPickle, running_jobs: [Job], delimiter="\t",
+                 **kwargs):
+
         super().__init__(pickle)
         self.running_jobs = running_jobs
+        self.delimiter = delimiter
 
     def execute(self):
-        running_jobs_details = ""
-        for job in self.running_jobs:
-            running_jobs_details += job.get_details() + "\n"
+        data = Job.list_jobs(self.running_jobs, json.dumps, indent=2,
+                             sort_keys=True, default=lambda x: x.__dict__)
 
-        if running_jobs_details:
-            success = Success("Here is a list of the running jobs:-\n" +
-                              running_jobs_details)
-            self.pickle.send(success.create_dictionary())
+        if not data:
+            success = Success("No running or finished jobs to list!")
         else:
-            self.pickle.send(Success("No running jobs!").create_dictionary())
+            success = Success(data)
 
+        self.pickle.send(success.create_dictionary())
         self.pickle.send(Terminate().create_dictionary())

@@ -29,15 +29,15 @@ class MyPickle(object):
         return data
 
     def send_folder(self, folder: str, path_to_remove: str) -> [(str, str)]:
-        def __get_all_folder_contents(folder: str, data:[(str, str)]=[]):
+        def __get_all_folder_contents(folder: str, data:[(str, str)]):
 
             if os.path.isfile(folder):
-                with open(folder, "r") as f:
+                with open(folder, "rb") as f:
                     file_ = f.read()
                 data.append((folder.replace(path_to_remove, ""), file_))
 
             else:
-                folder = directorize(folder, remove_slash=False)
+                folder = directorize(folder)
 
                 if os.path.isdir(folder):
                     for item in os.listdir(folder):
@@ -45,12 +45,13 @@ class MyPickle(object):
 
             return data
 
-        contents = __get_all_folder_contents(folder)
+        contents = __get_all_folder_contents(folder, [])
         self.send(contents)
         if not contents:
             raise ValueError("No data to send")
 
     def receive_folder(self, save_to: str) -> None:
+        save_to = directorize(save_to)
         data = self.receive()
 
         if not data:
@@ -59,7 +60,7 @@ class MyPickle(object):
         for file_path, file_data in data:
             full_path = save_to + file_path
             os.makedirs(remove_file_name(full_path), exist_ok=True)
-            with open(full_path, "w") as f:
+            with open(full_path, "wb") as f:
                 f.write(file_data)
 
     def connect(self, args):

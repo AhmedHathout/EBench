@@ -1,5 +1,10 @@
+#!/usr/bin/env python3
+
 import socket
 from threading import Thread, Event
+
+import sys
+sys.path.append("../")
 
 from lib.my_pickle import MyPickle
 from Server.session.session import Session

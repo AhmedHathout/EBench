@@ -32,9 +32,8 @@ class SubJob(Request):
         except OSError as e:
             self.pickle.send(Error(str(e)).create_dictionary())
         else:
-            problems = Job.get_problems_from_library(self.problems_path)
-
             try:
+                problems = Job.get_problems_from_library(self.problems_path, [])
                 job = Job(problems, self.configuration,
                           self.maximum_problems_in_parallel, self.running_jobs,
                           self.running_jobs_lock, self.job_id_lock)

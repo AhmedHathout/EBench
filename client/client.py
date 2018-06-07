@@ -1,4 +1,8 @@
+#!/usr/bin/env python3
+
 import sys
+sys.path.append("../")
+
 from socket import socket
 from time import sleep
 

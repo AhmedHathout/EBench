@@ -4,6 +4,7 @@ import subprocess
 from datetime import datetime
 from multiprocessing import cpu_count
 from threading import Event
+import json
 
 from lib.directory import directorize
 from libraries_paths.libraries_functions import *
@@ -34,8 +35,10 @@ class Job(object):
         self.running_jobs = running_jobs
         self.running_jobs_lock = running_jobs_lock
         self.save_results_to = get_server_job_results_path_by_id(self.id)
-        self.save_reports_to = get_server_job_report_path_by_id(self.id)
-        self.submission_time = datetime.now()
+        self.save_report_to = get_server_job_report_path_by_id(self.id)
+        self.save_details_to = get_server_job_details_file_by_id(self.id)
+        self.submission_time = datetime.now().__str__()
+        self.finish_time = None
 
     def run(self):
 
@@ -74,11 +77,24 @@ class Job(object):
                 finally:
                     problems_checked += 1
 
-        self.write_report()
+        def __finish(job: Job):
+            job.finish_time = datetime.now().__str__()
+            job.write_data()
+            job.write_report()
+            job.running_jobs_lock.wait()
+            job.running_jobs.remove(job)
+            job.running_jobs_lock.set()
 
-        self.running_jobs_lock.wait()
-        self.running_jobs.remove(self)
-        self.running_jobs_lock.set()
+        __finish(self)
+
+    def write_data(self):
+        os.makedirs(server_jobs_details_library, exist_ok=True)
+        data = self.__dict__.copy()
+
+        data = Job.prepare_job_dictionary(data)
+
+        with open(self.save_details_to, "w") as f:
+            json.dump(data, f, default=lambda value: value.__dict__, indent=2)
 
     def kill(self):
         for problem in self.problems:
@@ -87,7 +103,7 @@ class Job(object):
             except ValueError:
                 pass
 
-    def get_status(self):
+    def get_status(self, callback=None, **kwargs):
         status = {Scheduled.__name__: 0,
                   Running.__name__: 0,
                   Finished.__name__: 0,
@@ -97,27 +113,22 @@ class Job(object):
         for problem in self.problems:
             status[type(problem.state).__name__] += 1
 
-        total = len(self.problems)
-        result = ("Scheduled = " + str(status[Scheduled.__name__]) + " = " + str(status[Scheduled.__name__] * 100 / total) + "%\n" +
-                "Running = " + str(status[Running.__name__]) + " = " + str(status[Running.__name__] * 100/ total) + "%\n" +
-                "Finished = " + str(status[Finished.__name__]) + " = " + str(status[Finished.__name__] * 100/ total) + "%\n")
+        return callback(status, **kwargs) if callback else status
 
-        if status[Removed.__name__] > 0:
-            result += "Removed = " + str(status[Removed.__name__]) + " = " + str(status[Removed.__name__] * 100/ total) + "%\n"
 
-        if status[Error.__name__] > 0:
-            result += "Error = " + str(status[Error.__name__]) + " = " + str(status[Error.__name__] * 100/ total) + "%\n"
-
-        return result.strip()
-
+    @staticmethod
+    def format_status(status: {str: int}, delimiter: str):
+        s = ""
+        return "".join([s + "{} = {}{}".format(key, value, delimiter)
+                        for key, value in status.items()])
 
     def write_report(self):
-        if os.path.exists(self.save_reports_to):
-            shutil.rmtree(self.save_reports_to)
+        if os.path.exists(self.save_report_to):
+            shutil.rmtree(self.save_report_to)
 
-        os.makedirs(self.save_reports_to)
+        os.makedirs(self.save_report_to)
 
-        report_path = self.save_reports_to + "Job" + str(self.id)
+        report_path = self.save_report_to + "Job" + str(self.id)
         prover_options = self.configuration.prover_options
         prover_id = self.configuration.prover_id
 
@@ -135,13 +146,13 @@ class Job(object):
         removed_problems = self.get_problems_by_state(Removed)
 
         if failed_problems:
-            with open(self.save_reports_to + "failed_problems.tsv", "w") as f:
+            with open(self.save_report_to + "failed_problems.tsv", "w") as f:
                 f.write("Problem\tError\n")
                 for problem in failed_problems:
                     f.write(problem.path + "\t" + problem.result_error.replace("\n", ". ") + "\n")
 
         if removed_problems:
-            with open(self.save_reports_to + "removed_problems.txt", "w") as f:
+            with open(self.save_report_to + "removed_problems.txt", "w") as f:
                 for problem in removed_problems:
                     f.write(problem.path + "\n")
 
@@ -154,22 +165,56 @@ class Job(object):
 
         return problems
 
-    def get_details(self):
-        details = str(self.id) + "\t" + \
-                  self.get_status().replace("\n", ", ")[:-1] + "\t" + \
-                  str(self.submission_time) + "\t" + str(len(self.problems)) + \
-                  "\t" + self.configuration.prover_id + "\t" + \
-                  self.configuration.prover_options
+    @staticmethod
+    def get_details(running_jobs: [], callback=None, **kwargs):
+        os.makedirs(server_jobs_details_library, exist_ok=True)
 
-        return details
+        finished_jobs_details = []
+        for item in os.listdir(server_jobs_details_library):
+            with open(server_jobs_details_library + item, "r") as f:
+                finished_jobs_details.append(json.load(f))
+
+        running_jobs_details = []
+
+        for job in running_jobs:
+            data = Job.prepare_job_dictionary(job.__dict__.copy())
+            data.update({"problems" : job.get_status()})
+            running_jobs_details.append(data)
+
+        all_jobs_details = running_jobs_details + finished_jobs_details
+        all_jobs_details.sort(key=lambda x: x["id"])
+
+        return callback(all_jobs_details, **kwargs) if callback \
+            else (running_jobs, finished_jobs_details)
 
     @staticmethod
-    def get_problems_from_library(path: str, problems=[]):
+    def list_jobs(running_jobs, callback=None, **kwargs):
+        return Job.get_details(running_jobs, callback,
+                               **kwargs)
+
+    @staticmethod
+    def prepare_job_dictionary(data: dict):
+        keys_to_delete = ("job_id_lock",
+                          "problems",
+                          "save_report_to",
+                          "save_results_to",
+                          "running_jobs",
+                          "running_jobs_lock",
+                          "save_details_to")
+
+        for key in keys_to_delete:
+            del data[key]
+
+        return data
+
+    @staticmethod
+    def get_problems_from_library(path: str, problems: [Problem]):
         if not os.path.isdir(path):
             raise ValueError("No library with that path: " + path)
         for item in os.listdir(path):
-            if os.path.isdir(item):
-                Job.get_problems_from_library(path + directorize(item), problems)
+            new_path = directorize(path) + directorize(item)
+            if os.path.isdir(new_path):
+                Job.get_problems_from_library(new_path, problems)
             else:
                 if item.endswith(Problem.problems_extensions):
                     problems.append(Problem(

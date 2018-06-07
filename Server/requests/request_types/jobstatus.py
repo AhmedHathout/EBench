@@ -12,7 +12,7 @@ from server_response.response_types.terminate import Terminate
 class JobStatus(Request):
 
     def __init__(self, pickle:MyPickle, job_id: str,
-                 running_jobs: [Job], **kwargs):
+                 running_jobs: [Job], delimiter="\t", **kwargs):
 
         super().__init__(pickle)
         self.job_id = job_id
@@ -23,7 +23,8 @@ class JobStatus(Request):
         output = Job.get_job_stage(self.job_id, self.running_jobs)
 
         if isinstance(output, Job):
-            job_status = output.get_status()
+            job_status = output.get_status(Job.format_status,
+                                           **{"delimiter": "\t"})
             success = Success(job_status)
             self.pickle.send(success.create_dictionary())
             self.pickle.send(Terminate().create_dictionary())
