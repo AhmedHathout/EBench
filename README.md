@@ -10,7 +10,7 @@ prover and provide the client with the results when asked to.
 4. If you want to run the client on your machine go to `Ebench/client/` then type `./client.py`. There are some optional arguments too so type `./client.py -h` instead to know more about them.
 
 ### Client
-If you are running the client, you should use the command `help` to know what the instruction are that you can tell the server to do. You can after that type the instruction followed by `-h` to know more about it.
+If you are running the client, you should use the command `help` to a list of all the instruciton that you can tell the server to execute. You can after that type the instruction followed by `-h` to know more about it.
 
 ### Server
 The server just listens to the incoming connections and and executes the commands that come from the clients so there is nothing to type on its standard input.
