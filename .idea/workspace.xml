@@ -3,25 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="08d36389-e885-4d9a-a8c0-2749a13df85d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/install_prover/install_prover.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/install_prover/install_prover.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/job/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/job/configuration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/job/job.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/job/job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/jobreport.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/jobreport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/jobresults.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/jobresults.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/jobstatus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/jobstatus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/listjobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/listjobs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/subjob.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/subjob.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/requests/request_types/subprover.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/requests/request_types/subprover.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configure.py" beforeDir="false" afterPath="$PROJECT_DIR$/configure.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/directory.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/directory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/my_pickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/my_pickle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libraries_paths/libraries_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/libraries_paths/libraries_functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libraries_paths/libraries_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/libraries_paths/libraries_paths.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_response/response_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_response/response_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_response/response_types/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_response/response_types/send.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_response/response_types/status/receive.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_response/response_types/receive.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,11 +18,20 @@
       <file leaf-file-name="job.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/job/job.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="214" column="39" selection-start-line="214" selection-start-column="39" selection-end-line="214" selection-end-column="39" />
+            <state relative-caret-position="4158">
+              <caret line="189" column="17" selection-start-line="189" selection-start-column="17" selection-end-line="189" selection-end-column="17" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="configure.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configure.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -47,55 +39,20 @@
       <file leaf-file-name="directory.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/directory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="110">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="my_pickle.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/my_pickle.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configure.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/configure.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reset.py">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            <state relative-caret-position="198">
+              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
               <folding>
-                <element signature="e#24#37#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="libraries_paths.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_paths.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="84" selection-start-line="7" selection-start-column="84" selection-end-line="7" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -103,8 +60,20 @@
       <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state relative-caret-position="946">
+              <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="libraries_functions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_functions.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -112,20 +81,40 @@
       <file leaf-file-name="listjobs.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/requests/request_types/listjobs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+            <state relative-caret-position="286">
+              <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="genprot.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/job/genprot.py">
+      <file leaf-file-name="configuration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Server/job/configuration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3715">
-              <caret line="275" column="10" selection-start-line="275" selection-start-column="10" selection-end-line="275" selection-end-column="10" />
+            <state relative-caret-position="110">
+              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="libraries_paths.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_paths.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="my_pickle.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/my_pickle.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -227,7 +216,6 @@
         <option value="$PROJECT_DIR$/server_response/response_parser.py" />
         <option value="$PROJECT_DIR$/Server/job/genprot.py" />
         <option value="$PROJECT_DIR$/parsers/argparser.py" />
-        <option value="$PROJECT_DIR$/libraries_paths/libraries_paths.py" />
         <option value="$PROJECT_DIR$/Server/requests/request_types/jobresults.py" />
         <option value="$PROJECT_DIR$/Server/requests/request_types/subjob.py" />
         <option value="$PROJECT_DIR$/server_response/response_types/send.py" />
@@ -246,6 +234,7 @@
         <option value="$PROJECT_DIR$/lib/directory.py" />
         <option value="$PROJECT_DIR$/lib/my_pickle.py" />
         <option value="$PROJECT_DIR$/configure.py" />
+        <option value="$PROJECT_DIR$/libraries_paths/libraries_paths.py" />
       </list>
     </option>
   </component>
@@ -261,7 +250,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -372,6 +360,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -481,23 +470,33 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24905661" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24905661" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50026953" side_tool="true" weight="0.32924336" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32889345" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" weight="0.32991803" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" weight="0.32924336" />
+      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32991803" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32924336" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39959016" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997955" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" weight="0.32991803" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24905661" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39959016" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50026953" side_tool="true" weight="0.32924336" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32889345" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32924336" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -581,6 +580,20 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/server_response/response_types/status/receive.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/directory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/libraries_paths.py" />
     <entry file="file://$PROJECT_DIR$/Server/problems/state_types/removed.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -808,9 +821,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3300">
           <caret line="170" selection-start-line="170" selection-end-line="170" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -838,44 +848,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/job/configuration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_paths.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="84" selection-start-line="7" selection-start-column="84" selection-end-line="7" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        <state relative-caret-position="198">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
           <folding>
-            <element signature="e#24#37#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state relative-caret-position="946">
+          <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -888,21 +877,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/requests/request_types/listjobs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        <state relative-caret-position="286">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reset.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Server/job/job.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="214" column="39" selection-start-line="214" selection-start-column="39" selection-end-line="214" selection-end-column="39" />
+        <state relative-caret-position="4158">
+          <caret line="189" column="17" selection-start-line="189" selection-start-column="17" selection-end-line="189" selection-end-column="17" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -911,15 +897,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/directory.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="110">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/my_pickle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+        <state relative-caret-position="269">
+          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -928,10 +914,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/configure.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="154">
+          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/job/configuration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libraries_paths/libraries_paths.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

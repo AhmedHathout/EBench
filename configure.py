@@ -19,10 +19,10 @@ if __name__ == '__main__':
 
     args = argparser.parse_args()
 
-    default_server_library = "/" + directorize(
+    default_server_library = directorize(
         os.path.abspath("./server_libraries/"))
 
-    default_client_library = "/" + directorize(
+    default_client_library = directorize(
         os.path.abspath("./client_libraries/"))
 
     server_libraries = prepare_input_path(args.server_library) if \
