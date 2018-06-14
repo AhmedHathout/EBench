@@ -49,4 +49,4 @@ class SubProver(Request):
         else:
             success = Success("Prover submitted and installer")
             self.pickle.send(success.create_dictionary())
-            self.pickle.send(Terminate())
+            self.pickle.send(Terminate().create_dictionary())
