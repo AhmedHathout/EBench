@@ -160,6 +160,10 @@ class Parsers(object):
         return parsers
 
     def execute(self, string_request: str):
+        if not string_request:
+            self.pickle.send(Terminate().create_dictionary())
+            return
+
         split = shlex.split(string_request, posix=False)
         instruction = split[0].strip()
         argv = split[1:]
