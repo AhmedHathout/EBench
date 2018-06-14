@@ -57,7 +57,10 @@ if __name__ == '__main__':
 
     client = Client()
     client.initiate_connection(args.host, args.port)
-    client.run()
+    try:
+        client.run()
+    except KeyboardInterrupt:
+        pass
 
 
 

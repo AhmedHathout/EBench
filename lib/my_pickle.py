@@ -19,6 +19,9 @@ class MyPickle(object):
         chunk = 64 * 1024
         data_pickle = b''
         data_chunck = self.socket_.recv(chunk)
+        if not data_chunck:
+            raise KeyboardInterrupt
+
         while True:
             data_pickle += data_chunck
             if data_chunck.endswith("end".encode()):

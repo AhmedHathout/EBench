@@ -40,7 +40,10 @@ class Server(object):
                           self.running_jobs_lock, self.job_id_lock)
 
         self.sessions.append(session)
-        session.run()
+        try:
+            session.run()
+        except KeyboardInterrupt:
+            session.close()
         self.sessions.remove(session)
 
     def main(self):

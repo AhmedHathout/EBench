@@ -28,3 +28,6 @@ class Session(object):
             except ValueError as e:
                 self.pickle.send(Error(str(e)).create_dictionary())
                 return
+
+    def close(self):
+        self.pickle.socket_.close()
