@@ -15,10 +15,10 @@ def parse_args():
                                                " connect to the server")
 
     args.add_argument("--host", help="The host ip address "
-                                     "(default='127.0.0.1')",
+                                     "(default: %(default)s)",
                       type=str, default='127.0.0.1')
 
-    args.add_argument("--port", help="The port number (default=1998)",
+    args.add_argument("--port", help="The port number (default: %(default)d)",
                       type=int, default=1998)
 
     return args.parse_args()

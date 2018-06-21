@@ -3,6 +3,8 @@ from threading import Event
 
 from Server.requests.request_types.help import Help
 from Server.requests.request_types.listjobs import ListJobs
+from Server.requests.request_types.listprobs import ListProbs
+from Server.requests.request_types.listprovers import ListProvers
 from lib.my_pickle import MyPickle
 import shlex
 
@@ -19,6 +21,8 @@ from Server.requests.request_types.subprover import SubProver
 from server_response.response_types.status.status_types.error import Error
 from server_response.response_types.status.status_types.success import Success
 from server_response.response_types.terminate import Terminate
+from multiprocessing import cpu_count
+
 
 
 class TolerantArgumentParser(ArgumentParser):
@@ -67,28 +71,31 @@ class Parsers(object):
                                                           "Server", )
 
         addprobs_parser = TolerantArgumentParser(description="arguments for the addprobs instruction", RequestType=AddProbs)
-        addprobs_parser.add_argument("-f", help="Specifies the "
-                                                          "probelm directory "
-                                                          "on the client")
+        addprobs_parser.add_argument("-f",
+                                     help="Specifies the probelm directory "
+                                          "on the client (default: everthing"
+                                          "in problems_to_submit")
 
-        addprobs_parser.add_argument("-t", help="Specifies where the "
-                                                        "problems should be "
-                                                        "saved after the "
-                                                        "problems_library "
-                                                        "folder on the "
-                                                        "Server")
+        addprobs_parser.add_argument("-t",
+                                     help="Specifies where the problems should "
+                                          "be saved after the problems_library "
+                                          "folder on the Server "
+                                          "(default: main folder")
 
         subjob_parser = TolerantArgumentParser(description="arguments for the "
                                                             "subjob "
                                                             "instruction", RequestType=SubJob)
-        subjob_parser.add_argument("-po", "--prover-options", help="The "
-                                                                 "options for the prover",
-                                     default="--auto -s --print-statistics "
-                                             "--print-version")
+        subjob_parser.add_argument("-po", "--prover-options",
+                                   default="--auto -s --print-statistics "
+                                             "--print-version",
+                                   help="The options for the prover "
+                                        "(default: %(default)s)")
 
-        subjob_parser.add_argument("-pp", "--maximum_problems_in_parallel", help="Number "
-                                                                     "of "
-                                                                     "problems that can run in parallel", type=int)
+        subjob_parser.add_argument("-pp", "--maximum_problems_in_parallel",
+                                   default=cpu_count(),
+                                   help="Number of problems that can run in " \
+                                        "parallel (default: %(default)d)",
+                                   type=int)
 
         subjob_parser.add_argument("prover_id", help="The id of the prover that will run the job")
 
@@ -142,6 +149,20 @@ class Parsers(object):
                                                             "running jobs",
                                                  RequestType=ListJobs)
 
+        listprovers_parser = TolerantArgumentParser(description="Lists all the "
+                                                            "provers",
+                                                 RequestType=ListProvers)
+
+        listprobs_parser = TolerantArgumentParser(description="Lists all the "
+                                                              "problems "
+                                                              "libraries",
+                                                 RequestType=ListProbs)
+
+        listprobs_parser.add_argument("-r", "--recursive",
+                                      action="store_true",
+                                      help="If specified, the sublibraries "
+                                           "will also be printed")
+
         help = TolerantArgumentParser(description="Displays all instructions",
                                       RequestType=Help)
 
@@ -155,6 +176,8 @@ class Parsers(object):
                    Rerun.__name__.lower(): rerun_parser,
                    SubProver.__name__.lower(): subprover_parser,
                    ListJobs.__name__.lower(): listjobs_parser,
+                   ListProvers.__name__.lower(): listprovers_parser,
+                   ListProbs.__name__.lower(): listprobs_parser,
                    "help": help}
 
         return parsers
