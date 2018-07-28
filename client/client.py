@@ -2,7 +2,6 @@
 import argparse
 import sys
 
-from libraries_paths.libraries_functions import get_all_client_libraries
 
 sys.path.append("../")
 
@@ -11,6 +10,7 @@ from time import sleep
 
 from lib.my_pickle import MyPickle
 from server_response.response_parser import ResponseParser
+from libraries_paths.libraries_functions import get_all_client_libraries
 
 
 def parse_args():
