@@ -49,8 +49,6 @@ if __name__ == '__main__':
                                                 jobs_reports,
                  "client_jobs_results_library": client_libraries +
                                                 jobs_results,
-                 "jobs_ids": client_libraries + jobs +
-                             "IDs_of_submitted_jobs/",
                  "server_jobs_details_library": server_libraries + jobs_details
                  }
 

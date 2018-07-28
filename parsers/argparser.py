@@ -18,6 +18,7 @@ from Server.requests.request_types.killjob import KillJob
 from Server.requests.request_types.rerun import Rerun
 from Server.requests.request_types.subjob import SubJob
 from Server.requests.request_types.subprover import SubProver
+from libraries_paths.libraries_paths import server_problems_library
 from server_response.response_types.status.status_types.error import Error
 from server_response.response_types.status.status_types.success import Success
 from server_response.response_types.terminate import Terminate
@@ -26,42 +27,108 @@ from multiprocessing import cpu_count
 
 
 class TolerantArgumentParser(ArgumentParser):
+    """A modified version of the ArgumentParser class.
+
+    It has one more attribute than its parent class. It is the class assigned
+    to that request."""
 
     def __init__(self, RequestType: type, *args, **kwargs):
+        """Create a new object.
+
+        Args:
+            *args, **kwargs: The same arguments that its parent class has.
+            RequestType: A type object that can be used to initialize an object
+                         from a subclass of request class.
+            """
         super().__init__(*args, **kwargs)
         self.RequestType = RequestType
 
     def error(self, message):
+        """A modified version of the ArgumentParser.error()
+
+        This is to prevent the parser from printing the error on the server.
+        Instead it raises an error that is handled in Parsers.execute()
+        """
+
         help_message = self.format_help()
         error_message = '%s: error: %s\n' % (self.prog, message)
         message = help_message + error_message
         raise ValueError(message)
 
     def print_help(self, file=None):
+        """A modified version of the ArgumentParser.print_help()
+
+        This is to prevent the parser from printing the help message on the
+        server's stderr. Instead it raises an error that is handled in
+        Parsers.execute()
+        """
+
         raise ValueError(self.format_help())
 
-    def execute(self, argv: [], pickle: MyPickle, running_jobs: [Job],
-                running_jobs_lock: Event, job_id_lock: Event):
+    def execute(self, argv: [], pickle: MyPickle, client_libraries,
+                running_jobs: [Job], running_jobs_lock: Event,
+                job_id_lock: Event):
 
+        """Create an object from a subclass of the request class
+
+        Args:
+            argv: The arguments to the instruction of the request string.
+            pickle: The socket object to send and receive messages.
+            running_jobs: A list of all the running jobs on the server,
+            running_jobs_lock: The lock to that list.
+            job_id_lock: the lock to the job ID generator.
+        """
+
+        # Call the native parse_args method and convert the result to a dict.
         args = self.parse_args(argv).__dict__
+
+        # Update the dictionary of the arguments.
         args.update({"pickle" : pickle,
+                     "client_libraries": client_libraries,
                      "running_jobs": running_jobs,
                      "running_jobs_lock": running_jobs_lock,
                      "job_id_lock": job_id_lock})
+
+        # Create an object from that request by passing the dictionary args.
         request = self.RequestType(**args)
+
+        # Execute the request.
         request.execute()
 
 
 class Parsers(object):
-    def __init__(self, pickle:MyPickle, running_jobs: [Job], running_jobs_lock: Event, job_id_lock: Event):
+    def __init__(self, pickle:MyPickle, client_libraries: {str, str},
+                 running_jobs: [Job], running_jobs_lock: Event, job_id_lock: Event):
+        """Initialize an object from parsers.
+
+        Args:
+            argv: The arguments to the instruction of the request string.
+            pickle: The socket object to send and receive messages.
+            running_jobs: A list of all the running jobs on the server,
+            running_jobs_lock: The lock to that list.
+            job_id_lock: the lock to the job ID generator.
+        """
+
+        # get a dictionary containing all the parsers.
         self.parsers = self.initialize_parsers()
         self.pickle = pickle
+        self.client_libraries = client_libraries
         self.running_jobs = running_jobs
         self.running_jobs_lock = running_jobs_lock
         self.job_id_lock = job_id_lock
 
     def initialize_parsers(self):
+        """Initialize all the parsers.
+
+        This method creates a TolerantArgumentParser for every request type
+        """
+
+        # Parser for createlib instruction. The request type is the class
+        # associated with that instruction.
+
         createlib_parser = TolerantArgumentParser(description="arguments for the createlib instruction", RequestType=CreateLib)
+
+        # Add the arguments to the parser.
         createlib_parser.add_argument("directory", help="Specify the "
                                                           "directories that "
                                                           "should be created "
@@ -163,9 +230,16 @@ class Parsers(object):
                                       help="If specified, the sublibraries "
                                            "will also be printed")
 
+        listprobs_parser.add_argument("-d", "--directory",
+                                      help="directory to start with "
+                                           "(default: %(default)s))",
+                                      default=server_problems_library)
+
         help = TolerantArgumentParser(description="Displays all instructions",
                                       RequestType=Help)
 
+        # A dictionary containing all of these parsers. The key is the class
+        # name in lower case and the value is the paresr itself.
         parsers = {CreateLib.__name__.lower(): createlib_parser,
                    AddProbs.__name__.lower(): addprobs_parser,
                    SubJob.__name__.lower(): subjob_parser,
@@ -183,23 +257,50 @@ class Parsers(object):
         return parsers
 
     def execute(self, string_request: str):
+        """Creates the associated parser and passes the request to it.
+
+        Args:
+            string_request: The client request.
+        """
+
+        # Check if the request is an empty string.
         if not string_request:
+            # Tell the client to prompt the user to enter another command.
             self.pickle.send(Terminate().create_dictionary())
             return
 
+        # Split the request. shlex was used here in order not to split quoted
+        # strings.
         split = shlex.split(string_request, posix=False)
+
+        # The instruction is the first word in the request.
         instruction = split[0].strip()
+
+        # The arguments to that instruction is the rest of the request.
         argv = split[1:]
+
+        # Try to execute the request. Get the right parser by the instruction
         try:
             self.parsers[instruction].execute(argv=argv, pickle=self.pickle,
+
+                                              client_libraries=
+                                              self.client_libraries,
+
                                               running_jobs=self.running_jobs,
+
                                               job_id_lock=self.job_id_lock,
+
                                               running_jobs_lock=
                                               self.running_jobs_lock)
         except KeyError as e:
+            # A KeyError was raised because the instruction does not exist
+            # (Not in the parsers dictionary). Create an error and send it
+            # to the client.
             error = Error("No such instruction: " + str(e))
             self.pickle.send(error.create_dictionary())
 
+
         except ValueError as e:
+            # This is raised because of the help or error message.
             self.pickle.send(Success(str(e)).create_dictionary())
             self.pickle.send(Terminate().create_dictionary())

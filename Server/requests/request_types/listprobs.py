@@ -12,30 +12,48 @@ from server_response.response_types.terminate import Terminate
 
 
 class ListProbs(Request):
+    """List the folders in problems_library."""
 
-    def __init__(self, pickle:MyPickle, recursive: bool, **kwargs):
+    def __init__(self, pickle:MyPickle, directory: str, recursive: bool,
+                 **kwargs):
+
+        """create a new object.
+
+        Args:
+            directory: The folder to list its contents.
+            recursive: List subfolders.
+        """
         super().__init__(pickle)
+        self.directory = directory
         self.recursive = recursive
 
     def execute(self):
+
         if self.recursive:
             libraries = []
-            for root, folders, files_ in os.walk(server_problems_library):
+
+            # Get a list of tuples: [(root path, folders in it, files in it).
+            # Loop on it and append the folders only to the list that will be
+            # sent to the client.
+            for root, folders, files_ in os.walk(self.directory):
                 for folder in folders:
                     libraries.append(os.path.join(root, folder))
 
         else:
-            # libraries = [os.path.join(server_problems_library, library)
-            #              for library in os.listdir(server_problems_library)]
+
+            # Get the contents of this folder including files.
             libraries = os.listdir(server_problems_library)
 
         if libraries:
+            # Found some folders in the library
             message = "Here is a list of the libraries:-\n- " + \
                       "\n- ".join(libraries)
 
         else:
+            # Nothing was found. Send some text instead of empty list.
             message = "No libraries found!"
 
+        # Create and send the success message.
         success = Success(message)
         self.pickle.send(success.create_dictionary())
         self.pickle.send(Terminate().create_dictionary())

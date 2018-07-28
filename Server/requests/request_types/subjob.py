@@ -14,6 +14,8 @@ from server_response.response_types.terminate import Terminate
 
 class SubJob(Request):
 
+
+
     def __init__(self, pickle: MyPickle, prover_options: str, prover_id: str,
                  maximum_problems_in_parallel: str, problems_path: str,
                  running_jobs: [Job], running_jobs_lock: Event(), job_id_lock: Event):

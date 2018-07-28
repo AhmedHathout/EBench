@@ -38,3 +38,8 @@ def get_prover_path(prover_id):
 
 def get_prover_bin(prover_id):
     return provers_library + prover_bin(prover_id)
+
+def get_all_client_libraries():
+    return {"reports": client_jobs_reports_library,
+            "results": client_jobs_results_library}
+

@@ -12,6 +12,7 @@ from server_response.response_types.terminate import Terminate
 
 
 class SubProver(Request):
+    """Used to submit a new prover to the server."""
 
     def __init__(self, pickle: MyPickle, path: str, prover_id: str, **kwargs):
 

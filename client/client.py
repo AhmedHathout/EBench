@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import argparse
 import sys
+
+from libraries_paths.libraries_functions import get_all_client_libraries
+
 sys.path.append("../")
 
 from socket import socket
@@ -31,6 +34,7 @@ class Client(object):
 
     def initiate_connection(self, host: str, port: int):
         self.pickle.connect((host, port))
+        self.pickle.send(get_all_client_libraries())
 
     def run(self):
         while(True):
